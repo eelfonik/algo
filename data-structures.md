@@ -79,7 +79,7 @@ We have 2 focus:
 
 ## Stack
 
-Stack is **first-in-last-out**. 
+Stack is **last-in-first-out**. 
 
 It's like a bucket 🪣 , the earlier you put sth in it, the later you get it out, as it's covered by the items put in after. It has 2 actions: **push & pop**.
 
@@ -175,3 +175,27 @@ graph LR
 A[main-function]
 ```
 
+## Queue
+
+Queue is **first-in-first-out**. 
+
+It's like a pipe, you put sth to one end, and get it from another end.
+
+It has 2 actions: **enqueue & dequeue**.
+
+
+
+## Graph
+
+It's a abstarct data structure, which models a set of **connections**.
+
+It consists of Nodes & Edges:
+
+```mermaid
+graph LR
+A(node1)
+B(node2)
+A -->|Edge| B
+```
+
+The nodes with direct connection are called *neighbors*, like the "node1" & "node2" in the above graph.
