@@ -6,7 +6,7 @@ It takes O(n<sup>2</sup>) to sort an array, as you need to go through the items 
 
 In reality, as each time when we go through the array, we -1 from the previous one, so it should be `n + (n-1) + (n-2) +...+(n - (n -1)) `, that would be roughly 1/2 n<sup>2</sup>, but in big O notation, the `1/2` is called a *constant*, and we ignore it.
 
-EX:
+EX :
 
 ```javascript
 // input: [5,7,9,10,6,8,0]
