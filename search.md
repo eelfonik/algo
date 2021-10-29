@@ -53,7 +53,7 @@ function recBinarySearch(arr, target) {
 
 ## Breadth-First search
 
-This search algo is linked with [graph]('./data-structures.md#graph'). And to find the shorted distance between 2 things.
+**This search algo is linked with [graph]('./data-structures.md#graph'). And to find the shorted distance between 2 things.**
 
 Usage cases examples:
 
@@ -196,7 +196,7 @@ function bfs(inputGraph, start, end) {
 }
 
 // dfs -> 只需要在concat那一步直接循环下去即可，这样就会先搜索子树，而不是同一level的sibling
-// nope it's not working.
+// nope it's not working !!!!!
 function dfs(inputGraph, start, end) {
   // setup a stack
   let children = [];

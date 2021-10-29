@@ -199,3 +199,8 @@ A -->|Edge| B
 ```
 
 The nodes with direct connection are called *neighbors*, like the "node1" & "node2" in the above graph.
+
+### Tree
+
+Tree is a special case of Graph, where no edges point back. ( In a graph multiple nodes can point back to each other )
+
