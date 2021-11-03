@@ -17,11 +17,11 @@ Naively, we could do it in 4 steps:
 3. repeat the process for every node ( except the finish node ) in the graph
 4. calculate the final path
 
-Note this algo only works with *directed acyclic graphs*, 即中文中所谓的“有向无环图”，简称为DAG.
+Note this algo only works with *directed acyclic graphs*, 即中文中所谓的“有向无环图”，简称为DAG. ❌
 
 > 即然undirected必定有环（cyclic), 为什么不直接说acyclic graph (无环图)? 
 
-
+N.B. **This is wrong** !!! Dijkstra algo对于有环图是可以work的，只要没有negative weight即可。因为即使有环，dijkstra algo也会确保不会重复proceed已经处理过的node.
 
 ### Implementation
 
@@ -53,7 +53,7 @@ function buildInitCostAndParent(graph: Graph, start: string): ResultMap {
   });
   // for all other nodes, set to Infinity
   graph.forEach((_edges, node) => {
-    if (node !== start && !nodesCostAndParent.has(node)) {
+    if (!nodesCostAndParent.has(node)) {
       // those are the nodes that we have not visited yet
       nodesCostAndParent.set(node, {cost: Infinity, parent: ''});
     }
@@ -74,7 +74,7 @@ function getResult(resultMap: ResultMap, end: string) {
   calcPath(end);
   return resultMap.get(end)!.cost === Infinity ? null : {
     cost: resultMap.get(end)!.cost,
-    path
+    path 
   }
 }
 
@@ -149,17 +149,17 @@ dijkstraAlgo(graph, 'a', 'f') // {cost: 37, path: [ 'a', 'b', 'e', 'f' ]}
 
 - 然后从离start node最近的一个node `A` 开始，在hash table里找到`A` 的cost, 然后在graph里找到`A` 的neighbors, 对于每一个neighbor, 找到它相对于`A` 的cost, 把它跟`A`的cost相加， 这样我们就得到了这个neighbor如果经过`A` 的话，相对于start node的距离，我们把它跟目前已经存储在hash table里的cost对比（如果这个neighbor node之前直接跟start node相连，或者已经经过过别的node有了最短距离，则我们已经有了一个具体数字，否则就是`Infinity`), 如果它更小，就更新cost和parent, 否则保持原样。这样我们处理了所有跟node `A` 相邻的nodes的最短距离。因此把`A`标记为"processed"（即在此张图上经过`A`的所有点的最短距离已经被标记过了）。
 
-- 此时在hash table里，所有的经过`A`的最短路径都已经被标记过了（且都是**相对于start node的距离**），我们用第三步的方程再找到下一个离start node最近的node(会略过`A`因为已经被处理过了)。这个下一个node有可能是某个经过`A`的node,也有可能不是。但无论如何，在处理这下一个node的时候，我们都已经考虑过了经过`A`的路径。
+- 此时在hash table里，所有的经过`A`的最短路径都已经被标记过了（且都是**相对于start node的距离**），我们用第三步的方程再找到下一个离start node最近的node(会略过`A`因为已经被处理过了)。这个下一个node有可能是某个经过`A`的node,也有可能不是。但无论如何，在处理这下一个node的时候，我们都已经考虑过了经过`A`的路径，而只专注于经过这下一个node的路径。
 
 - 这样循环之后，我们可以保证遍历了所有在result map里列出的nodes,也即所有在graph里的nodes（如果此时还有cost为`Infinity`的node,则证明从start node开始我们找不到任何一条路径通向它。
 
-- 此时用辅助方程我们可以查看end node的cost(这个cost是从start node出发的)，同时可以找到这个最小cost的parent, 然后可以在result里顺着parent往上寻找，就可以找到这条具体的路径。如果cost还是Inifinty,则证明没有路
+- 此时用辅助方程我们可以查看end node的cost(这个cost是从start node出发的)，同时可以找到这个最小cost的parent, 然后可以在result里顺着parent往上寻找，就可以找到这条具体的路径。如果cost是Inifinty,则证明没有路
 
 
 
 ### Negative weight
 
-Dijkstra algo also doesn't work with the *negative weight* .
+Dijkstra algo doesn't work with the *negative weight* .
 
 Why ? Because at 1st step, you already choose the **cheapest** node, and in the algo, you'll mark this node as *processed*, and will not go back to it again, even after you find another cheaper way to there ( by applying the negative weight ).
 
