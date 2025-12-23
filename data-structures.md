@@ -11,7 +11,8 @@ If you want to store multiple things, then we'll use an `array` or a `linked lis
 
 ## Array
 
-Using array to store multiple values means the items are stored **contiguously** ( right next to each other ).
+Using array to store multiple values means the items are stored **contiguously** ( right next to each other ). 
+Dynamic languages like JS or python don't really have static arrays.
 
 It means when you want to add another item in the array, and if the next slot is already taken by sth else, you need to move **completely** to another place, where you can fit all the the items.
 
